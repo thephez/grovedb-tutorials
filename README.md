@@ -11,4 +11,4 @@ cargo build
 cargo run --bin <tutorial name>
 ```
 
-Valid tutorial names: open, insert, delete, query-simple, proofs
+Valid tutorial names: open, insert, delete, query-simple, query-complex, proofs
