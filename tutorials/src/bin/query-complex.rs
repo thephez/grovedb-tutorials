@@ -1,10 +1,12 @@
 use grovedb::GroveDb;
 use grovedb::Element;
+use grovedb::operations::insert::InsertOptions;
 use grovedb::{ Query, PathQuery, QueryItem, SizedQuery };
 use rand::Rng;
 
 const KEY1: &[u8] = b"key1";
 const KEY2: &[u8] = b"key2";
+const INSERT_OPTIONS: Option<InsertOptions> = Some(InsertOptions { validate_insertion_does_not_override: false, validate_insertion_does_not_override_tree: false, base_root_storage_is_free: true });
 
 fn main() {
    
@@ -71,20 +73,20 @@ fn populate(db: &GroveDb) {
 
     // Put an empty subtree into the root tree nodes at KEY1.
     // Call this SUBTREE1.
-    db.insert([], KEY1, Element::empty_tree(), None, None)
+    db.insert([], KEY1, Element::empty_tree(), INSERT_OPTIONS, None)
         .unwrap()
         .expect("successful SUBTREE1 insert");
 
     // Put an empty subtree into subtree1 at KEY2.
     // Call this SUBTREE2.
-    db.insert([KEY1], KEY2, Element::empty_tree(), None, None)
+    db.insert([KEY1], KEY2, Element::empty_tree(), INSERT_OPTIONS, None)
         .unwrap()
         .expect("successful SUBTREE2 insert");
 
     // Populate SUBTREE2 with values 0 through 49 under keys 0 through 49.
     for i in 0u8..50 {
         let i_vec = (i as u8).to_be_bytes().to_vec();
-        db.insert([KEY1, KEY2], &i_vec, Element::new_item(i_vec.clone()), None, None)
+        db.insert([KEY1, KEY2], &i_vec, Element::new_item(i_vec.clone()), INSERT_OPTIONS, None)
             .unwrap()
             .expect("successfully inserted values in SUBTREE2");
     }
@@ -96,28 +98,28 @@ fn populate(db: &GroveDb) {
 
     // Overwrite key rn1 with a subtree
     // Call this SUBTREE3
-    db.insert([KEY1, KEY2], &rn1, Element::empty_tree(), None, None)
+    db.insert([KEY1, KEY2], &rn1, Element::empty_tree(), INSERT_OPTIONS, None)
         .unwrap()
         .expect("successful SUBTREE3 insert");
 
     // Populate SUBTREE3 with values 50 through 74 under keys 50 through 74
     for i in 50u8..75 {
         let i_vec = (i as u8).to_be_bytes().to_vec();
-        db.insert([KEY1, KEY2, rn1], &i_vec, Element::new_item(i_vec.clone()), None, None)
+        db.insert([KEY1, KEY2, rn1], &i_vec, Element::new_item(i_vec.clone()), INSERT_OPTIONS, None)
             .unwrap()
             .expect("successfully inserted values in SUBTREE3");
     }
 
     // Overwrite key rn2 with a subtree
     // Call this SUBTREE4
-    db.insert([KEY1, KEY2, rn1], &rn2, Element::empty_tree(), None, None)
+    db.insert([KEY1, KEY2, rn1], &rn2, Element::empty_tree(), INSERT_OPTIONS, None)
         .unwrap()
         .expect("successful SUBTREE4 insert");
 
     // Populate SUBTREE4 with values 75 through 99 under keys 75 through 99
     for i in 75u8..99 {
         let i_vec = (i as u8).to_be_bytes().to_vec();
-        db.insert([KEY1, KEY2, rn1, rn2], &i_vec, Element::new_item(i_vec.clone()), None, None)
+        db.insert([KEY1, KEY2, rn1, rn2], &i_vec, Element::new_item(i_vec.clone()), INSERT_OPTIONS, None)
             .unwrap()
             .expect("successfully inserted values in SUBTREE4");
     }
