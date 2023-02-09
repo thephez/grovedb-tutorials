@@ -1,3 +1,5 @@
+//! Clears storage folder
+
 use std::fs;
 
 fn main() {
