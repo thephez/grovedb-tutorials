@@ -1,11 +1,10 @@
 use grovedb::GroveDb;
-use grovedb::{ Query, PathQuery };
+use grovedb::{PathQuery, Query};
 
 const KEY1: &[u8] = b"key1";
 const KEY2: &[u8] = b"key2";
 
 fn main() {
-
     // Specify the path to the previously created GroveDB instance
     let path = String::from("../storage");
     // Open GroveDB as db
@@ -34,5 +33,7 @@ fn main() {
     println!("Does the hash generated from the query proof match the GroveDB root hash?");
     if hash == db.root_hash(None).unwrap().unwrap() {
         println!("Yes");
-    } else { println!("No"); };
+    } else {
+        println!("No");
+    };
 }

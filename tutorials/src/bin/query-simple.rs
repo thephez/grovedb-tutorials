@@ -1,15 +1,20 @@
-use grovedb::GroveDb;
+use grovedb::operations::insert::InsertOptions;
 use grovedb::Element;
-use grovedb::{ Query, PathQuery};
+use grovedb::GroveDb;
+use grovedb::{PathQuery, Query};
 
 const KEY1: &[u8] = b"key1";
 const KEY2: &[u8] = b"key2";
+const INSERT_OPTIONS: Option<InsertOptions> = Some(InsertOptions {
+    validate_insertion_does_not_override: false,
+    validate_insertion_does_not_override_tree: false,
+    base_root_storage_is_free: true,
+});
 
 fn main() {
-   
     // Specify the path where the GroveDB instance exists.
     let path = String::from("../storage");
-    
+
     // Open GroveDB at the path.
     let db = GroveDb::open(path).unwrap();
 
@@ -37,28 +42,32 @@ fn main() {
 
     // Print result items to terminal.
     println!("{:?}", elements);
-
 }
 
 fn populate(db: &GroveDb) {
-
     // Put an empty subtree into the root tree nodes at KEY1.
     // Call this SUBTREE1.
-    db.insert([], KEY1, Element::empty_tree(), None, None)
+    db.insert([], KEY1, Element::empty_tree(), INSERT_OPTIONS, None)
         .unwrap()
         .expect("successful SUBTREE1 insert");
 
     // Put an empty subtree into subtree1 at KEY2.
     // Call this SUBTREE2.
-    db.insert([KEY1], KEY2, Element::empty_tree(), None, None)
+    db.insert([KEY1], KEY2, Element::empty_tree(), INSERT_OPTIONS, None)
         .unwrap()
         .expect("successful SUBTREE2 insert");
 
     // Populate SUBTREE2 with values 0 through 99 under keys 0 through 99.
     for i in 0u8..100 {
         let i_vec = (i as u8).to_be_bytes().to_vec();
-        db.insert([KEY1, KEY2], &i_vec, Element::new_item(i_vec.clone()), None, None)
-            .unwrap()
-            .expect("successfully inserted values");
+        db.insert(
+            [KEY1, KEY2],
+            &i_vec,
+            Element::new_item(i_vec.clone()),
+            INSERT_OPTIONS,
+            None,
+        )
+        .unwrap()
+        .expect("successfully inserted values");
     }
 }
