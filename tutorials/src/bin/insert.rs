@@ -16,12 +16,12 @@ fn main() {
    // Insert key-value 1 into the root tree
    db.insert([], key1, Element::Item(val1.to_vec(), None), None, None)
        .unwrap()
-       .expect("successful root tree leaf insert");
+       .expect("successful key1 insert");
 
    // Insert key-value 2 into the root tree
    db.insert([], key2, Element::Item(val2.to_vec(), None), None, None)
        .unwrap()
-       .expect("successful root tree leaf 2 insert");
+       .expect("successful key2 insert");
 
    // At this point the Items are fully inserted into the database.
    // No other steps are required.
