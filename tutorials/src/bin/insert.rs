@@ -8,18 +8,18 @@ fn main() {
    let db = GroveDb::open(path).unwrap();
 
    // Define key-values for insertion
-   let KEY1 = b"hello";
-   let VAL1 = b"world";
-   let KEY2 = b"grovedb";
-   let VAL2 = b"rocks";
+   let key1 = b"hello";
+   let val1 = b"world";
+   let key2 = b"grovedb";
+   let val2 = b"rocks";
 
    // Insert key-value 1 into the root tree
-   db.insert([], KEY1, Element::Item(VAL1.to_vec(), None), None, None)
+   db.insert([], key1, Element::Item(val1.to_vec(), None), None, None)
        .unwrap()
        .expect("successful root tree leaf insert");
 
    // Insert key-value 2 into the root tree
-   db.insert([], KEY2, Element::Item(VAL2.to_vec(), None), None, None)
+   db.insert([], key2, Element::Item(val2.to_vec(), None), None, None)
        .unwrap()
        .expect("successful root tree leaf 2 insert");
 
@@ -30,10 +30,10 @@ fn main() {
    // function to get them from the RocksDB backing store.
 
    // Get value 1
-   let result1 = db.get([], KEY1, None).unwrap();
+   let result1 = db.get([], key1, None).unwrap();
 
    // Get value 2
-   let result2 = db.get([], KEY2, None).unwrap();
+   let result2 = db.get([], key2, None).unwrap();
 
    // Print the values to terminal
    println!("{:?}", result1);
