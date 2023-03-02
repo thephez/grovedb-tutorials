@@ -46,7 +46,11 @@ fn main() {
 
     // Add subquery branches.
     // If 60 is a subtree, navigate through SUBTREE4 and run subquery2 on SUBTREE5.
-    subquery.add_conditional_subquery(QueryItem::Key(vec![60]), Some(vec!(KEY3.to_vec())), Some(subquery2));
+    subquery.add_conditional_subquery(
+        QueryItem::Key(vec![60]),
+        Some(vec![KEY3.to_vec()]),
+        Some(subquery2),
+    );
     // If anything up to and including 25 is a subtree, run subquery on it. No path.
     query.add_conditional_subquery(
         QueryItem::RangeToInclusive(std::ops::RangeToInclusive { end: vec![25] }),
@@ -143,9 +147,15 @@ fn populate(db: &GroveDb) {
 
     // Put an empty subtree into SUBTREE4 at KEY3.
     // Call this SUBTREE5.
-    db.insert([KEY1, KEY2, rn1, rn2], KEY3, Element::empty_tree(), INSERT_OPTIONS, None)
-        .unwrap()
-        .expect("successful SUBTREE5 insert");
+    db.insert(
+        [KEY1, KEY2, rn1, rn2],
+        KEY3,
+        Element::empty_tree(),
+        INSERT_OPTIONS,
+        None,
+    )
+    .unwrap()
+    .expect("successful SUBTREE5 insert");
 
     // Populate SUBTREE5 with values 75 through 99 under keys 75 through 99
     for i in 75u8..99 {
