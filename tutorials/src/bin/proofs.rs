@@ -1,14 +1,27 @@
 use grovedb::GroveDb;
-use grovedb::{PathQuery, Query};
+use grovedb::{ Query, PathQuery };
+use grovedb::operations::insert::InsertOptions;
+use grovedb::Element;
 
 const KEY1: &[u8] = b"key1";
 const KEY2: &[u8] = b"key2";
 
+// Allow insertions to overwrite trees
+// This is necessary so the tutorial can be rerun easily
+const INSERT_OPTIONS: Option<InsertOptions> = Some(InsertOptions {
+    validate_insertion_does_not_override: false,
+    validate_insertion_does_not_override_tree: false,
+    base_root_storage_is_free: true,
+});
+
 fn main() {
+
     // Specify the path to the previously created GroveDB instance
     let path = String::from("../storage");
     // Open GroveDB as db
     let db = GroveDb::open(path).unwrap();
+    // Populate GroveDB with values. This function is defined below.
+    populate(&db);
     // Define the path to the subtree we want to query.
     let path = vec![KEY1.to_vec(), KEY2.to_vec()];
     // Instantiate a new query.
@@ -33,7 +46,33 @@ fn main() {
     println!("Does the hash generated from the query proof match the GroveDB root hash?");
     if hash == db.root_hash(None).unwrap().unwrap() {
         println!("Yes");
-    } else {
-        println!("No");
-    };
+    } else { println!("No"); };
+}
+
+fn populate(db: &GroveDb) {
+    // Put an empty subtree into the root tree nodes at KEY1.
+    // Call this SUBTREE1.
+    db.insert([], KEY1, Element::empty_tree(), INSERT_OPTIONS, None)
+        .unwrap()
+        .expect("successful SUBTREE1 insert");
+
+    // Put an empty subtree into subtree1 at KEY2.
+    // Call this SUBTREE2.
+    db.insert([KEY1], KEY2, Element::empty_tree(), INSERT_OPTIONS, None)
+        .unwrap()
+        .expect("successful SUBTREE2 insert");
+
+    // Populate SUBTREE2 with values 0 through 99 under keys 0 through 99.
+    for i in 0u8..100 {
+        let i_vec = (i as u8).to_be_bytes().to_vec();
+        db.insert(
+            [KEY1, KEY2],
+            &i_vec,
+            Element::new_item(i_vec.clone()),
+            INSERT_OPTIONS,
+            None,
+        )
+        .unwrap()
+        .expect("successfully inserted values");
+    }
 }
