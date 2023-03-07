@@ -7,5 +7,6 @@ fn main() {
     // Open a new GroveDB at the path
     GroveDb::open(&path).unwrap();
 
+    // Print to the terminal
     println!("Opened {:?}", path);
 }

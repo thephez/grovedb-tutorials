@@ -6,6 +6,10 @@ use rand::Rng;
 
 const KEY1: &[u8] = b"key1";
 const KEY2: &[u8] = b"key2";
+const KEY3: &[u8] = b"key3";
+
+// Allow insertions to overwrite trees
+// This is necessary so the tutorial can be rerun easily
 const INSERT_OPTIONS: Option<InsertOptions> = Some(InsertOptions {
     validate_insertion_does_not_override: false,
     validate_insertion_does_not_override_tree: false,
@@ -41,8 +45,12 @@ fn main() {
     subquery2.insert_range(90_u8.to_be_bytes().to_vec()..95_u8.to_be_bytes().to_vec());
 
     // Add subquery branches.
-    // If 60 is a subtree, run subquery2 on it. No path.
-    subquery.add_conditional_subquery(QueryItem::Key(vec![60]), None, Some(subquery2));
+    // If 60 is a subtree, navigate through SUBTREE4 and run subquery2 on SUBTREE5.
+    subquery.add_conditional_subquery(
+        QueryItem::Key(vec![60]),
+        Some(vec![KEY3.to_vec()]),
+        Some(subquery2),
+    );
     // If anything up to and including 25 is a subtree, run subquery on it. No path.
     query.add_conditional_subquery(
         QueryItem::RangeToInclusive(std::ops::RangeToInclusive { end: vec![25] }),
@@ -137,17 +145,29 @@ fn populate(db: &GroveDb) {
     .unwrap()
     .expect("successful SUBTREE4 insert");
 
-    // Populate SUBTREE4 with values 75 through 99 under keys 75 through 99
+    // Put an empty subtree into SUBTREE4 at KEY3.
+    // Call this SUBTREE5.
+    db.insert(
+        [KEY1, KEY2, rn1, rn2],
+        KEY3,
+        Element::empty_tree(),
+        INSERT_OPTIONS,
+        None,
+    )
+    .unwrap()
+    .expect("successful SUBTREE5 insert");
+
+    // Populate SUBTREE5 with values 75 through 99 under keys 75 through 99
     for i in 75u8..99 {
         let i_vec = (i as u8).to_be_bytes().to_vec();
         db.insert(
-            [KEY1, KEY2, rn1, rn2],
+            [KEY1, KEY2, rn1, rn2, KEY3],
             &i_vec,
             Element::new_item(i_vec.clone()),
             INSERT_OPTIONS,
             None,
         )
         .unwrap()
-        .expect("successfully inserted values in SUBTREE4");
+        .expect("successfully inserted values in SUBTREE5");
     }
 }

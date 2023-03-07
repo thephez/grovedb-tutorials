@@ -5,6 +5,9 @@ use grovedb::{PathQuery, Query};
 
 const KEY1: &[u8] = b"key1";
 const KEY2: &[u8] = b"key2";
+
+// Allow insertions to overwrite trees
+// This is necessary so the tutorial can be rerun easily
 const INSERT_OPTIONS: Option<InsertOptions> = Some(InsertOptions {
     validate_insertion_does_not_override: false,
     validate_insertion_does_not_override_tree: false,
