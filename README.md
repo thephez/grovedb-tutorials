@@ -4,6 +4,8 @@ This repository contains a set of tutorials for GroveDB, the first database to e
 
 ## Tutorials
 
+Each tutorial contains just the example code snippets taken from the in-depth explanatory article found [https://docs.google.com/document/d/1V-h21lX1vovVQYMaPuzNcrYuhhrZVY5WobKdkgxhY-U/edit?usp=sharing]here.
+
 - [Open](open) - Covers how to open a GroveDB instance and perform basic operations.
 
 - [Insert](insert) - Explains how to insert data into GroveDB, including inserting items and subtrees.
@@ -15,8 +17,6 @@ This repository contains a set of tutorials for GroveDB, the first database to e
 - [Query Complex](query-complex) - Covers more advanced querying in GroveDB, including conditional subqueries and sized queries.
 
 - [Proofs](proofs) - Demonstrates how to generate an inclusion proof for a simple query.
-
-Each tutorial contains example code snippets along with explanations to help you understand and utilize GroveDB effectively in your projects.
 
 ## Getting Started
 
