@@ -4,7 +4,7 @@ This repository contains a set of tutorials for GroveDB, the first database to e
 
 ## Tutorials
 
-Each tutorial contains just the example code snippets taken from the in-depth explanatory article found [https://docs.google.com/document/d/1V-h21lX1vovVQYMaPuzNcrYuhhrZVY5WobKdkgxhY-U/edit?usp=sharing]here.
+Each tutorial contains just the example code snippets taken from the in-depth explanatory article found [https://docs.google.com/document/d/1V-h21lX1vovVQYMaPuzNcrYuhhrZVY5WobKdkgxhY-U/edit?usp=sharing](here).
 
 - [Open](open) - Covers how to open a GroveDB instance and perform basic operations.
 
