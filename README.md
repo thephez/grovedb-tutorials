@@ -6,17 +6,17 @@ This repository contains a set of tutorials for GroveDB, the first database to e
 
 Each tutorial contains just the example code snippets taken from the in-depth explanatory article that can be found [here](https://docs.google.com/document/d/1V-h21lX1vovVQYMaPuzNcrYuhhrZVY5WobKdkgxhY-U/edit?usp=sharing).
 
-- [Open](open) - Covers how to open a GroveDB instance and perform basic operations.
+- [Open](tutorials/open) - Covers how to open a GroveDB instance and perform basic operations.
 
-- [Insert](insert) - Explains how to insert data into GroveDB, including inserting items and subtrees.
+- [Insert](tutorials/insert) - Explains how to insert data into GroveDB, including inserting items and subtrees.
 
-- [Delete](delete) - Demonstrates how to delete items and subtrees from GroveDB.
+- [Delete](tutorials/delete) - Demonstrates how to delete items and subtrees from GroveDB.
 
-- [Query Simple](query-simple) - Introduces simple querying capabilities in GroveDB, including retrieving a set of items.
+- [Query Simple](tutorials/query-simple) - Introduces simple querying capabilities in GroveDB, including retrieving a set of items.
 
-- [Query Complex](query-complex) - Covers more advanced querying in GroveDB, including conditional subqueries and sized queries.
+- [Query Complex](tutorials/query-complex) - Covers more advanced querying in GroveDB, including conditional subqueries and sized queries.
 
-- [Proofs](proofs) - Demonstrates how to generate an inclusion proof for a simple query.
+- [Proofs](tutorials/proofs) - Demonstrates how to generate an inclusion proof for a simple query.
 
 ## Getting Started
 
