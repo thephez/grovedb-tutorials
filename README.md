@@ -1,6 +1,6 @@
 # GroveDB Tutorials
 
-This repository contains a set of tutorials for GroveDB, the first database to enable cryptographic proofs for queries more complex than single-key retrievals. GroveDB was built for Dash Platform but exists as a standalone product, so it may be integrated into other projects as well.
+This repository contains a set of tutorials for GroveDB, the first database to enable cryptographic proofs for queries more complex than single-key retrievals. GroveDB was built for [Dash Platform](https://www.dash.org/platform/) but exists as a standalone product, so it may be integrated into other projects as well.
 
 ## Tutorials
 
