@@ -49,4 +49,4 @@ Contributions from the community are always welcome! If you find any issues or h
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE file](LICENSE.md) for details.
