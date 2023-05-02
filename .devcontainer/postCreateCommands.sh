@@ -8,4 +8,4 @@
 
 # Needed to build
 sudo apt update
-sudo apt install libclang-dev
+sudo apt install -y libclang-dev
